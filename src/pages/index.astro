@@ -1,0 +1,382 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<script>
+  const get100svh = () =>
+    parseInt(getComputedStyle(document.getElementById("p100svh")!).height);
+  const getTileSize = () =>
+    parseInt(getComputedStyle(document.getElementById("grid")!).WebkitMaskSize);
+  const calcEnTop = () => (get100svh() - 80) % getTileSize();
+  const en = document.getElementById("company-name-en") as HTMLElement;
+
+  const setEnTop = () => (en.style.top = `${calcEnTop()}px`);
+
+  window.addEventListener("resize", setEnTop);
+  window.addEventListener("load", setEnTop);
+
+  const hLineObserver = new IntersectionObserver(
+    ([e]) => {
+      if (e.isIntersecting) {
+        document.getElementById("grid")!.style.background = "";
+      } else {
+        document.getElementById("grid")!.style.background = "none";
+      }
+    },
+    {
+      threshold: [1],
+    }
+  );
+  hLineObserver.observe(document.getElementById("h-line-wrapper")!);
+
+  const companyNameJaObserver = new IntersectionObserver(
+    ([e]) => {
+      if (e.isIntersecting) {
+        document.getElementById("global-nav")!.style.display = "none";
+      } else {
+        document.getElementById("global-nav")!.style.display = "";
+      }
+    },
+    {
+      threshold: [0.3],
+    }
+  );
+  companyNameJaObserver.observe(document.getElementById("company-name-ja")!);
+</script>
+
+<Layout title="空想虚構研究所 / Imaginary Void Lab">
+  <div id="axis" role="presentation">
+    <div id="v-line"></div>
+    <div id="h-line-wrapper">
+      <div id="h-line"></div>
+    </div>
+  </div>
+  <nav id="global-nav" style="display: none;">
+    <div id="nav-main">
+      <a href="#principle">研究理念</a>
+      <a href="#projects">プロジェクト</a>
+      <a href="#about">研究所概要</a>
+    </div>
+    <div id="nav-name">
+      <div class="large">
+        <a href="/">Imaginary Void Lab<br />空想虚構研究所</a>
+      </div>
+      <div class="small">
+        <a href="/">空虚研</a>
+      </div>
+    </div>
+  </nav>
+  <section id="first-view">
+    <div id="grid"></div>
+    <h1 id="company-name">
+      <span id="company-name-en" lang="en">Imaginary<br />Void Lab</span>
+      <span id="company-name-ja" lang="ja">空想虚構研究所</span>
+    </h1>
+  </section>
+  <div id="contents">
+    <a id="principle" class="anchor"></a>
+    <h2>研究理念</h2>
+    <p>
+      当研究所は、ソフトウェア技術に特化しながらも、想像力や空想をテーマに掲げています。このことは、ソフトウェアが現実の物理的な存在とは異なり、人々が想像によって形を作り上げるものであることに由来しています。ソフトウェア開発においては、現実のユーザーが求める機能や体験を想像し、それを実体のないコンピューターシステム上で実現することが求められます。そのため、想像力や空想力が必要不可欠なスキルであり、ソフトウェア開発者は現実世界と想像の世界の橋渡しをする役割を担っているといえます。
+    </p>
+    <p>
+      また、ソフトウェア技術の進化によって、私たちは想像力や空想力をより効果的に活用することができるようになりました。例えば、仮想現実や人工知能など、現実には存在しない世界や能力を模倣することが可能となっています。空想や虚構といった、一見して「存在しないもの」と思われるものが、現実世界に与える影響や価値を追求することで、新たな可能性や発見を生み出すことができると考えています。空想虚構研究所は、常に新しい発想とアプローチを模索し、未来に向けて挑戦し続けることで、社会や人々の生活に貢献することを目指しています。
+    </p>
+    <a id="projects" class="anchor"></a>
+    <h2>プロジェクト</h2>
+    <h3>機械学習技術を用いた心理状態分析システムの開発</h3>
+    <p>
+      生活空間に設置されたセンサーで計測されたデータを機械学習で解析し、人の心理状態を推測するシステムの開発を行うプロジェクトです。具体的には、声のトーンや周囲の環境音、室温や湿度などから、人のストレスレベルや感情状態を推測することを目指します。このシステムを利用することで、生活空間の改善やストレス軽減につながることが期待されます。
+    </p>
+    <h3>空想文化に関する調査研究</h3>
+    <p>
+      空想や虚構といったテーマに関する調査研究を行い、その社会的な影響や価値について分析するプロジェクトです。例えば、現代のアニメやマンガ作品がどのような空想世界を描いているか、その人気の背景や社会的意義について探求します。また、空想世界を体現する技術やサービスが生活や文化にどのような影響を与えるかを考察することも目的とします。
+    </p>
+    <h3>Web上での空想世界の構築プロジェクト</h3>
+    <p>
+      Web開発技術を用いて、誰でも参加できるオンライン上の空想世界を構築するプロジェクトです。この空想世界では、参加者が自由に想像することができ、他の参加者との交流やコラボレーションが可能です。また、空想に関する様々な情報や作品が集積されることで、空想文化の発展に寄与することが期待されます。
+    </p>
+    <a id="about" class="anchor"></a>
+    <h2>研究所概要</h2>
+    <table style="border-spacing: 10px;">
+      <tbody>
+        <tr>
+          <th>研究所名</th>
+          <td>空想虚構研究所 / Imaginary Void Lab</td>
+        </tr>
+        <tr>
+          <th>研究所長</th>
+          <td>井淵 亮太郎</td>
+        </tr>
+        <tr>
+          <th>事業内容</th>
+          <td>
+            <ul style="margin: 0; padding-inline-start: 25px;">
+              <li>機械学習技術を用いた生活空間技術の研究開発</li>
+              <li>Web開発技術を用いたシステムの開発支援</li>
+              <li>空想や虚構の研究、これらを扱う文化活動の支援</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>設立年月日</th>
+          <td>2021年03月04日</td>
+        </tr>
+        <tr>
+          <th>連絡先</th>
+          <td>info@imaginary-void.com</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer>© Imaginary Void Lab</footer>
+  <div id="p100svh"></div>
+</Layout>
+
+<style>
+  :root {
+    --left: min(200px, calc(100svw * 0.1));
+    --tile-size: min(150px, calc(100vh * 0.15));
+    --ja-font-size: min(100px, calc(100vh * 0.1));
+    --en-font-size: min(100px, calc(100vh * 0.12));
+  }
+
+  #p100svh {
+    height: 100svh;
+    position: fixed;
+    pointer-events: none;
+  }
+
+  .anchor {
+    display: block;
+    margin-top: -120px;
+    padding-top: 120px;
+  }
+
+  #axis {
+    pointer-events: none;
+    position: absolute;
+    --width: 15px;
+    width: 100%;
+    height: 100%;
+    z-index: 1200;
+  }
+
+  #v-line {
+    background-color: var(--primary-black);
+
+    position: fixed;
+    top: 30px;
+    bottom: -100px;
+    left: calc(var(--left) - var(--width) / 2);
+
+    width: var(--width);
+    background-color: var(--primary-black);
+  }
+
+  #v-line::before {
+    content: "";
+    display: block;
+    background-color: var(--primary-black);
+    width: 40px;
+    height: 60px;
+    position: absolute;
+    top: -30px;
+    left: calc(-20px + var(--width) / 2);
+    clip-path: polygon(50% 0%, 0% 100%, 50% 90%, 100% 100%);
+  }
+
+  #h-line-wrapper {
+    position: sticky;
+    top: -1px;
+    height: 101px;
+    margin-top: calc(100svh - 80px - var(--width) / 2 - 100px);
+    width: calc(100% - 30px);
+  }
+
+  #h-line {
+    position: absolute;
+    bottom: calc(-1 * var(--width) + 1px);
+    background-color: var(--primary-black);
+    width: 100%;
+    height: var(--width);
+  }
+
+  #h-line::before {
+    content: "";
+    display: block;
+    background-color: var(--primary-black);
+    width: 60px;
+    height: 40px;
+    position: absolute;
+    top: calc(-20px + var(--width) / 2);
+    right: -30px;
+    clip-path: polygon(0% 0%, 100% 50%, 0% 100%, 10% 50%);
+  }
+
+  #global-nav {
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    z-index: 1000;
+    background-color: var(--primary-white);
+  }
+
+  #nav-main {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-left: calc(var(--left) + 40px);
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 5px 20px;
+  }
+
+  #nav-main a {
+    color: var(--primary-black);
+    text-decoration: none;
+    font-size: min(1.8em, calc(6svw));
+    font-weight: 600;
+  }
+
+  #nav-name {
+    container: nav-name / inline-size;
+    flex-basis: 100%;
+    min-width: 70px;
+    flex-shrink: 100000000000;
+    display: flex;
+    justify-content: right;
+  }
+
+  #nav-name a {
+    margin-right: 15px;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 0px var(--primary-black);
+    align-self: flex-end;
+  }
+
+  @container nav-name (max-width: 200px) {
+    .small {
+      display: contents;
+    }
+
+    .small a {
+      margin-bottom: 20px !important;
+      margin-right: 5px !important;
+    }
+
+    .large {
+      display: none;
+    }
+  }
+
+  @container nav-name (min-width: 200px) {
+    .small {
+      display: none;
+    }
+    .large {
+      display: contents;
+    }
+  }
+
+  #nav-name a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-family: "Open Sans", "Shippori Antique";
+  }
+
+  #first-view {
+    position: relative;
+    z-index: 1100;
+    top: 0;
+    width: 100%;
+    height: 100svh;
+    pointer-events: none;
+  }
+
+  #grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-black);
+    -webkit-mask: url("./grid.svg");
+    -webkit-mask-size: var(--tile-size);
+    -webkit-mask-position: var(--left) calc(100svh - 80px);
+  }
+
+  #company-name {
+    pointer-events: all;
+    margin: 0;
+  }
+
+  #company-name-en {
+    font-size: var(--en-font-size);
+    font-family: "Open Sans";
+    font-weight: 700;
+    line-height: var(--tile-size);
+    color: var(--accent-color);
+    white-space: nowrap;
+
+    position: absolute;
+    display: inline-block;
+    left: var(--left);
+    right: 0;
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    margin-top: calc(var(--tile-size) * 0.1);
+    padding-left: 50px;
+    text-shadow: 3px 3px 0px var(--primary-black);
+  }
+
+  #company-name-ja {
+    font-size: var(--ja-font-size);
+    font-family: "Shippori Antique";
+    font-weight: 700;
+    line-height: var(--tile-size);
+    color: var(--accent-color);
+    white-space: nowrap;
+
+    position: absolute;
+    display: inline-block;
+    left: var(--left);
+    right: 0;
+    bottom: 70px;
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    padding-left: 50px;
+    padding-bottom: 10px;
+    text-shadow: 3px 3px 0px var(--primary-black);
+  }
+
+  #contents {
+    margin-top: 50px;
+    margin-left: calc(var(--left) + 8svw);
+    margin-right: calc(8svw);
+    margin-bottom: 60svh;
+  }
+
+  #contents h2 {
+    font-size: 1.8rem;
+    border-bottom: 1px solid var(--primary-black);
+  }
+
+  #contents h3 {
+    font-size: 1.5rem;
+  }
+
+  #contents p {
+    max-width: 800px;
+    text-indent: 1em;
+  }
+
+  footer {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+</style>
