@@ -6,13 +6,26 @@ import Layout from "../layouts/Layout.astro";
   const get100svh = () =>
     parseInt(getComputedStyle(document.getElementById("p100svh")!).height);
   const getTileSize = () =>
-    parseInt(getComputedStyle(document.getElementById("grid")!).WebkitMaskSize);
+    parseInt(
+      (getComputedStyle(document.getElementById("grid")!) as any).WebkitMaskSize
+    );
   const calcEnTop = () => (get100svh() - 80) % getTileSize();
   const en = document.getElementById("company-name-en") as HTMLElement;
 
   const setEnTop = () => (en.style.top = `${calcEnTop()}px`);
 
-  window.addEventListener("resize", setEnTop);
+  const debounce = <A extends any[], R>(
+    func: (...args: A) => R,
+    timeout: number
+  ) => {
+    let timer: number;
+    return (...args: A) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => func(...args), timeout);
+    };
+  };
+
+  window.addEventListener("resize", debounce(setEnTop, 500));
   window.addEventListener("load", setEnTop);
 
   const hLineObserver = new IntersectionObserver(
