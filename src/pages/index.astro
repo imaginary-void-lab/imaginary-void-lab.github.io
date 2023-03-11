@@ -10,7 +10,7 @@ import Layout from "../layouts/Layout.astro";
       (getComputedStyle(document.getElementById("grid")!) as any).WebkitMaskSize
     );
   const calcEnTop = () => (get100svh() - 80) % getTileSize();
-  const en = document.getElementById("company-name-en") as HTMLElement;
+  const en = document.getElementById("company-name") as HTMLElement;
 
   const setEnTop = () => (en.style.top = `${calcEnTop()}px`);
 
@@ -149,6 +149,7 @@ import Layout from "../layouts/Layout.astro";
 <style>
   :root {
     --left: min(200px, calc(100svw * 0.1));
+    --bottom: 80px;
     --tile-size: min(150px, calc(100vh * 0.15));
     --ja-font-size: min(100px, calc(100vh * 0.1));
     --en-font-size: min(100px, calc(100vh * 0.12));
@@ -203,7 +204,7 @@ import Layout from "../layouts/Layout.astro";
     position: sticky;
     top: -1px;
     height: 101px;
-    margin-top: calc(100svh - 80px - var(--width) / 2 - 100px);
+    margin-top: calc(100svh - var(--bottom) - var(--width) / 2 - 100px);
     width: calc(100% - 30px);
   }
 
@@ -324,6 +325,18 @@ import Layout from "../layouts/Layout.astro";
   #company-name {
     pointer-events: all;
     margin: 0;
+
+    position: absolute;
+    top: 0px;
+    left: var(--left);
+    right: 0;
+    bottom: var(--bottom);
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
   }
 
   #company-name-en {
@@ -332,18 +345,16 @@ import Layout from "../layouts/Layout.astro";
     font-weight: 700;
     line-height: var(--tile-size);
     color: var(--accent-color);
+    text-shadow: 3px 3px 0px var(--primary-black);
     white-space: nowrap;
 
-    position: absolute;
     display: inline-block;
-    left: var(--left);
-    right: 0;
-    overflow-y: hidden;
-    overflow-x: auto;
+
+    width: fit-content;
+    margin-right: 80px;
+    padding-left: 50px;
 
     margin-top: calc(var(--tile-size) * 0.1);
-    padding-left: 50px;
-    text-shadow: 3px 3px 0px var(--primary-black);
   }
 
   #company-name-ja {
@@ -352,19 +363,14 @@ import Layout from "../layouts/Layout.astro";
     font-weight: 700;
     line-height: var(--tile-size);
     color: var(--accent-color);
+    text-shadow: 3px 3px 0px var(--primary-black);
     white-space: nowrap;
 
-    position: absolute;
-    display: inline-block;
-    left: var(--left);
-    right: 0;
-    bottom: 70px;
-    overflow-y: hidden;
-    overflow-x: auto;
-
+    width: fit-content;
+    margin-right: 80px;
     padding-left: 50px;
-    padding-bottom: 10px;
-    text-shadow: 3px 3px 0px var(--primary-black);
+
+    margin-bottom: 10px;
   }
 
   #contents {
