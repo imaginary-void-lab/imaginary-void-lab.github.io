@@ -259,7 +259,6 @@ import Layout from "../layouts/Layout.astro";
   #nav-name {
     container: nav-name / inline-size;
     flex-basis: 100%;
-    min-width: 70px;
     flex-shrink: 100000000000;
     display: flex;
     justify-content: right;
@@ -279,20 +278,25 @@ import Layout from "../layouts/Layout.astro";
   }
 
   @container nav-name (max-width: 250px) {
-    .small {
+    #nav-name .small {
       display: contents;
     }
 
-    .large {
+    #nav-name a {
+      margin-right: -50px;
+      margin-bottom: 10px;
+    }
+
+    #nav-name .large {
       display: none;
     }
   }
 
   @container nav-name (min-width: 250px) {
-    .small {
+    #nav-name .small {
       display: none;
     }
-    .large {
+    #nav-name .large {
       display: contents;
     }
   }
