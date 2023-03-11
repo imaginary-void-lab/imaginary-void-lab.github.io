@@ -72,10 +72,10 @@ import Layout from "../layouts/Layout.astro";
     </div>
     <div id="nav-name">
       <div class="large">
-        <a href="/">Imaginary Void Lab<br />空想虚構研究所</a>
+        <a href="/">Imaginary Void Lab</a>
       </div>
       <div class="small">
-        <a href="/">空虚研</a>
+        <a href="/">IVR</a>
       </div>
     </div>
   </nav>
@@ -153,6 +153,7 @@ import Layout from "../layouts/Layout.astro";
     --tile-size: min(150px, calc(100vh * 0.15));
     --ja-font-size: min(100px, calc(100vh * 0.1));
     --en-font-size: min(120px, calc(100vh * 0.12));
+    --grid-color: var(--accent-color);
   }
 
   #p100svh {
@@ -177,21 +178,19 @@ import Layout from "../layouts/Layout.astro";
   }
 
   #v-line {
-    background-color: var(--primary-black);
-
     position: fixed;
     top: 30px;
     bottom: -500px;
     left: calc(var(--left) - var(--width) / 2);
 
     width: var(--width);
-    background-color: var(--primary-black);
+    background-color: var(--grid-color);
   }
 
   #v-line::before {
     content: "";
     display: block;
-    background-color: var(--primary-black);
+    background-color: var(--grid-color);
     width: 40px;
     height: 60px;
     position: absolute;
@@ -211,7 +210,7 @@ import Layout from "../layouts/Layout.astro";
   #h-line {
     position: absolute;
     bottom: calc(-1 * var(--width) + 1px);
-    background-color: var(--primary-black);
+    background-color: var(--grid-color);
     width: 100%;
     height: var(--width);
   }
@@ -219,7 +218,7 @@ import Layout from "../layouts/Layout.astro";
   #h-line::before {
     content: "";
     display: block;
-    background-color: var(--primary-black);
+    background-color: var(--grid-color);
     width: 60px;
     height: 40px;
     position: absolute;
@@ -231,16 +230,18 @@ import Layout from "../layouts/Layout.astro";
   #global-nav {
     position: fixed;
     width: 100%;
+    padding-left: calc(var(--left) + 40px);
+    padding-right: 60px;
+
     height: 100px;
     display: flex;
+    justify-content: space-between;
     z-index: 1000;
     background-color: var(--primary-white);
   }
 
   #nav-main {
-    flex-grow: 1;
     flex-shrink: 1;
-    margin-left: calc(var(--left) + 40px);
     display: flex;
     align-items: center;
     align-content: center;
@@ -265,42 +266,35 @@ import Layout from "../layouts/Layout.astro";
   }
 
   #nav-name a {
-    margin-right: 15px;
     margin-bottom: 5px;
-    font-size: 1.2em;
-    text-shadow: 1px 1px 0px var(--primary-black);
+    margin-right: 10px;
+    font-size: 1.5em;
+    font-style: italic;
     align-self: flex-end;
-  }
 
-  @container nav-name (max-width: 200px) {
-    .small {
-      display: contents;
-    }
-
-    .small a {
-      margin-bottom: 20px !important;
-      margin-right: 5px !important;
-    }
-
-    .large {
-      display: none;
-    }
-  }
-
-  @container nav-name (min-width: 200px) {
-    .small {
-      display: none;
-    }
-    .large {
-      display: contents;
-    }
-  }
-
-  #nav-name a {
-    color: var(--accent-color);
+    color: var(--secondary-accent-color);
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 900;
     font-family: "Open Sans", "Shippori Antique";
+  }
+
+  @container nav-name (max-width: 250px) {
+    .small {
+      display: contents;
+    }
+
+    .large {
+      display: none;
+    }
+  }
+
+  @container nav-name (min-width: 250px) {
+    .small {
+      display: none;
+    }
+    .large {
+      display: contents;
+    }
   }
 
   #first-view {
@@ -316,7 +310,7 @@ import Layout from "../layouts/Layout.astro";
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: var(--primary-black);
+    background-color: var(--grid-color);
     -webkit-mask: url("/grid.svg");
     -webkit-mask-size: var(--tile-size);
     -webkit-mask-position: var(--left) calc(100svh - 80px);
@@ -340,34 +334,41 @@ import Layout from "../layouts/Layout.astro";
   }
 
   #company-name-en {
+    background: linear-gradient(90deg, var(--accent-color), var(--secondary-accent-color));
+    -webkit-background-clip: text;
+    color: transparent;
+
     font-size: var(--en-font-size);
     font-family: "Open Sans";
-    font-weight: 700;
+    font-style: italic;
+    font-weight: 900;
     line-height: var(--tile-size);
-    color: var(--accent-color);
-    text-shadow: 3px 3px 0px var(--primary-black);
+
     white-space: nowrap;
 
     display: inline-block;
 
     width: fit-content;
-    margin-right: 80px;
+    padding-right: 50px;
     padding-left: 50px;
 
     margin-top: calc(var(--tile-size) * 0.1);
   }
 
   #company-name-ja {
+    background: linear-gradient(90deg, var(--accent-color), var(--secondary-accent-color));
+    -webkit-background-clip: text;
+    color: transparent;
+
     font-size: var(--ja-font-size);
     font-family: "Shippori Antique";
+    font-style: italic;
     font-weight: 700;
     line-height: var(--tile-size);
-    color: var(--accent-color);
-    text-shadow: 3px 3px 0px var(--primary-black);
     white-space: nowrap;
 
     width: fit-content;
-    margin-right: 80px;
+    padding-right: 50px;
     padding-left: 50px;
 
     margin-bottom: 10px;
