@@ -57,6 +57,17 @@ import Layout from "../layouts/Layout.astro";
     }
   );
   companyNameJaObserver.observe(document.getElementById("company-name-ja")!);
+
+  document.getElementById("h-line")?.addEventListener("click", () => {
+    const target = document.getElementById("company-name-wrapper");
+    if (target) {
+      if (target.scrollLeft < 100) {
+        target.scrollTo({ left: 1000, behavior: "smooth" });
+      } else {
+        target.scrollTo({ left: 0, behavior: "smooth" });
+      }
+    }
+  });
 </script>
 
 <Layout title="Imaginary Void Lab">
@@ -252,6 +263,7 @@ import Layout from "../layouts/Layout.astro";
   }
 
   #h-line {
+    pointer-events: all;
     position: absolute;
     bottom: calc(-1 * var(--width) + 1px);
     background-color: var(--grid-color);
@@ -372,15 +384,17 @@ import Layout from "../layouts/Layout.astro";
     bottom: 0;
     overflow-y: hidden;
     overflow-x: auto;
+
+    --scrollbar-size: 14px;
   }
 
   #company-name-wrapper::-webkit-scrollbar {
-    height: 14px;
+    height: var(--scrollbar-size);
     background-color: transparent;
   }
 
   #company-name-wrapper::-webkit-scrollbar-thumb {
-    border-radius: calc(14px / 2);
+    border-radius: calc(var(--scrollbar-size) / 2);
     background: rgba(var(--secondary-accent-color-rgb), 0.6);
   }
 
@@ -388,7 +402,7 @@ import Layout from "../layouts/Layout.astro";
     margin: 0;
 
     top: 0;
-    height: 100vh;
+    bottom: calc(-1 * var(--scrollbar-size));
     position: absolute;
     padding-bottom: var(--bottom);
 
