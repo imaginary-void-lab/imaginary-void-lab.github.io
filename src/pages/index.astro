@@ -31,13 +31,15 @@ import Layout from "../layouts/Layout.astro";
   const hLineObserver = new IntersectionObserver(
     ([e]) => {
       if (e.isIntersecting) {
-        document.getElementById("grid")!.style.background = "";
+        document.getElementById("grid")!.style.visibility = "";
       } else {
-        document.getElementById("grid")!.style.background = "none";
+        document.getElementById("grid")!.style.visibility = "hidden";
       }
     },
     {
-      threshold: [1],
+      // Workaround of Edge's unstable behavior
+      // https://codepen.io/arita_mii/pen/NWLzONx??editors=1111
+      threshold: 0.5,
     }
   );
   hLineObserver.observe(document.getElementById("h-line-wrapper")!);
@@ -73,6 +75,7 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="Imaginary Void Lab">
   <div id="axis" role="presentation">
     <div id="v-line"></div>
+    <div id="h-line-spacer"></div>
     <div id="h-line-wrapper">
       <div id="h-line"></div>
     </div>
@@ -226,10 +229,11 @@ import Layout from "../layouts/Layout.astro";
   #axis {
     pointer-events: none;
     position: absolute;
-    --width: 15px;
     width: 100%;
     height: 100%;
     z-index: 1200;
+
+    --width: 15px;
   }
 
   #v-line {
@@ -253,12 +257,23 @@ import Layout from "../layouts/Layout.astro";
     left: calc(-20px + var(--width) / 2);
     clip-path: polygon(50% 0%, 0% 100%, 50% 90%, 100% 100%);
   }
+  #h-line-spacer {
+    height: calc(100svh - var(--bottom) - var(--width) / 2 - 100px);
+    /* Workaround of Edge's unstable behavior */
+    /* https://codepen.io/arita_mii/pen/NWLzONx??editors=1111 */
+    height: calc(
+      100svh - var(--bottom) - var(--width) / 2 - (100px + 100px + var(--width))
+    );
+  }
 
   #h-line-wrapper {
     position: sticky;
     top: -1px;
-    height: 101px;
-    margin-top: calc(100svh - var(--bottom) - var(--width) / 2 - 100px);
+    height: calc(100px + 1px);
+    /* Workaround of Edge's unstable behavior */
+    /* https://codepen.io/arita_mii/pen/NWLzONx??editors=1111 */
+    top: calc(-1 * (100px + var(--width)));
+    height: calc(100px + 100px + var(--width));
     width: calc(100% - 30px);
   }
 
