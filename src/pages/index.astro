@@ -12,7 +12,7 @@ import Layout from "../layouts/Layout.astro";
   const calcEnTop = () => (get100svh() - 80) % getTileSize();
   const en = document.getElementById("company-name") as HTMLElement;
 
-  const setEnTop = () => (en.style.top = `${calcEnTop()}px`);
+  const setEnTop = () => (en.style.paddingTop = `${calcEnTop()}px`);
 
   const debounce = <A extends any[], R>(
     func: (...args: A) => R,
@@ -45,13 +45,15 @@ import Layout from "../layouts/Layout.astro";
   const companyNameJaObserver = new IntersectionObserver(
     ([e]) => {
       if (e.isIntersecting) {
+        document.getElementById("first-view")!.style.visibility = "";
         document.getElementById("global-nav")!.style.display = "none";
       } else {
+        document.getElementById("first-view")!.style.visibility = "hidden";
         document.getElementById("global-nav")!.style.display = "";
       }
     },
     {
-      threshold: [0.3],
+      threshold: [0],
     }
   );
   companyNameJaObserver.observe(document.getElementById("company-name-ja")!);
@@ -82,10 +84,12 @@ import Layout from "../layouts/Layout.astro";
   </nav>
   <section id="first-view">
     <div id="grid"></div>
-    <h1 id="company-name">
-      <span id="company-name-en" lang="en">Imaginary<br />Void Lab</span>
-      <span id="company-name-ja" lang="ja">空想架空研究所</span>
-    </h1>
+    <div id="company-name-wrapper">
+      <h1 id="company-name">
+        <span id="company-name-en" lang="en">Imaginary<br />Void Lab</span>
+        <span id="company-name-ja" lang="ja">空想架空研究所</span>
+      </h1>
+    </div>
   </section>
   <div id="contents">
     <h2 id="principle" class="anchor">研究理念</h2>
@@ -347,10 +351,10 @@ import Layout from "../layouts/Layout.astro";
     top: 0;
     width: 100%;
     height: 100svh;
-    pointer-events: none;
   }
 
   #grid {
+    pointer-events: none;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -360,17 +364,33 @@ import Layout from "../layouts/Layout.astro";
     -webkit-mask-position: var(--left) calc(100svh - 80px);
   }
 
-  #company-name {
-    pointer-events: all;
-    margin: 0;
-
+  #company-name-wrapper {
     position: absolute;
     top: 0px;
     left: var(--left);
     right: 0;
-    bottom: var(--bottom);
+    bottom: 0;
     overflow-y: hidden;
     overflow-x: auto;
+  }
+
+  #company-name-wrapper::-webkit-scrollbar {
+    height: 14px;
+    background-color: transparent;
+  }
+
+  #company-name-wrapper::-webkit-scrollbar-thumb {
+    border-radius: calc(14px / 2);
+    background: rgba(var(--secondary-accent-color-rgb), 0.6);
+  }
+
+  #company-name {
+    margin: 0;
+
+    top: 0;
+    height: 100vh;
+    position: absolute;
+    padding-bottom: var(--bottom);
 
     display: flex;
     justify-content: space-between;
